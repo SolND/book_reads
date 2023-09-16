@@ -23,13 +23,12 @@ OnlineReaderSystem::~OnlineReaderSystem() {
     }
 }
 
-void OnlineReaderSystem::run() {	// only public one
+void OnlineReaderSystem::run() {	
     load_database();
 
     while (true) {
         users_manager->access_system();	// login/signup
 
-        // Let's make for every user, its own viewer class: Remember: Single responsibility principle
         if (users_manager->get_current_user()->get_is_lib_admin()) {
             AdminView view(*users_manager, *books_manager);
             view.display();

@@ -14,21 +14,24 @@ void UserView::list_available_books()
     std::cout << "\nOur current book collection:\n";
     int idx = 0;
     for (const auto &pair : mp) {
-        // As we call ToString: we don't need to worry about book data members future changes
-        std::cout << "\t" << ++idx << " " << pair.second->to_string() << "\n";
+        std::cout << "\t" << ++idx << " " << pair.second->get_title() << "\n";
     }
 
     std::cout << "\nWhich book to read?: ";
-    int choice = read_number(1, idx);	// For simplicity, assume a new book is selected
+    int choice = read_number(1, idx);
 
     idx = 0;
-    for (const auto &pair : mp) {
-        if (++idx == choice) {
+for (const auto &pair : mp) {
+    if (++idx == choice) {
+        if (pair.second != nullptr) {
             BookRead* session = users_manager.add_reaad_session(pair.second);
             display_session(session);
-            break;
+        } else {
+            std::cout << "Invalid choice. Book not found.\n";
         }
+        break;
     }
+}
 
 }
 void UserView::list_read_history() 
@@ -40,7 +43,7 @@ void UserView::list_read_history()
     }
 
     if (idx == 0)
-        std::cout << "\nNo history. List books and start having fun\n";
+        std::cout << "\nNo history.\n";
     else {
         std::cout << "\nWhich session to open?: ";
         int choice = read_number(1, idx);
@@ -61,10 +64,10 @@ void UserView::display()
     std::cout << "\n\nHello " << user->get_name() << " | User View\n";
 
     std::vector<std::string> menu;
-    menu.push_back("View Profile");
-    menu.push_back("List & Select from My Reading History");
-    menu.push_back("List & Select from Available Books");
-    menu.push_back("Logout");
+    menu.push_back("Xem hồ sơ"); 
+    menu.push_back("Liệt kê và chọn từ lịch sử đọc của tôi"); 
+    menu.push_back("Danh sách & Chọn từ Sách có sẵn"); 
+    menu.push_back("Đăng xuất");
 
     while (true) {
         int choice = show_read_menu(menu);
@@ -79,10 +82,13 @@ void UserView::display()
     }
 }
 
-
-
 void UserView::display_session(BookRead* session) 
 {
+    if (session == nullptr) {
+        std::cout << "Invalid session. Cannot display.\n";
+        return;
+    }
+    
     std::vector<std::string> menu;
     menu.push_back("Next Page");
     menu.push_back("Previous Page");

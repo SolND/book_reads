@@ -19,7 +19,6 @@ public:
     std::string get_title();
     std::string get_isbn();
     std::vector<std::string> &get_pages();
-    std::string to_string();
 
 private:
     std::string title;

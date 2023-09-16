@@ -5,7 +5,7 @@
 class UsersManager {
 private:
 	User* current_user = nullptr;
-	std::map<std::string, User*> userame_userobject;
+	static std::map<std::string, User*> userame_userobject;
 
     void free_loaded_data();
 

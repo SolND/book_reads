@@ -21,7 +21,6 @@ public:
 	void previous_page();
 	std::string to_string();
 
-
 private:
     Book *book;
     int current_page;

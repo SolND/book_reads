@@ -1,5 +1,6 @@
 #include "misc.hpp"
- int read_number(int low, int high) {
+int read_number(int low, int high) 
+{
 	std::cout << "\nEnter number in range " << low << " - " << high << ": ";
 	int value;
 
@@ -12,7 +13,8 @@
 	return read_number(low, high);
 }
 
- int show_read_menu(std::vector<std::string> choices) {
+int show_read_menu(std::vector<std::string> choices) 
+{
 	std::cout << "\nMenu:\n";
 	for (int ch = 0; ch < (int) choices.size(); ++ch) {
 		std::cout << "\t" << ch + 1 << ": " << choices[ch] << "\n";
@@ -20,7 +22,8 @@
 	return read_number(1, choices.size());
 }
 
-std::string get_current_time_date() {	
+std::string get_current_time_date() 
+{	
 	auto now = std::chrono::system_clock::now();
 	auto in_time_t = std::chrono::system_clock::to_time_t(now);
 

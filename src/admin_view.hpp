@@ -13,8 +13,11 @@ public:
     void display();
     void view_profile();
     void add_book();
-    void set_users_manager(UsersManager manager);
-    void set_book_manager(BooksManager manager);
+    void delete_book();
+    void update_book();
+    void show_book();
+    void set_users_manager(UsersManager &manager);
+    void set_book_manager(BooksManager &manager);
 private:
 	UsersManager &users_manager;
 	BooksManager &books_manager;

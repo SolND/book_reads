@@ -2,11 +2,17 @@
 
 UsersManager::UsersManager() 
 {
+    current_user = nullptr;
 }
 
 UsersManager::~UsersManager() {
     std::cout << "Destuctor: UsersManager\n";
     free_loaded_data();
+    if (current_user) 
+    {
+        delete current_user;
+        current_user = nullptr;
+    }
 }
 
 void UsersManager::load_database() {
@@ -15,20 +21,12 @@ void UsersManager::load_database() {
     free_loaded_data();
     // Some "Dummy Data" for simplicity
     User* user1 = new User();
-    user1->set_user_name("Rishu");
+    user1->set_user_name("Zohar");
     user1->set_password("82");
-    user1->set_mail("rishurajan57@gmail.com");
+    user1->set_mail("sond1909@gmail.com");
     user1->set_library_admin(true);
-    user1->set_name("Rishu Rajan");
+    user1->set_name("Son");
     userame_userobject[user1->get_user_name()] = user1;
-
-    User* user2 = new User();
-    user2->set_user_name("Rajan");
-    user2->set_password("1999");
-    user2->set_mail("rajan@gmail.com");
-    user2->set_library_admin(false);
-    user2->set_name("Titu Kumar");
-    userame_userobject[user2->get_user_name()] = user2;
 }
 
 void UsersManager::access_system() {
@@ -46,20 +44,20 @@ void UsersManager::login() {
         std::string user_name= "", pass = "";
         std::cin.clear();
         //std::cin.ignore(256, '\n');
-        std::cout << "Enter user_name: ";
+        std::cout << "Điền tên đăng nhập: ";
         std::cin >> user_name;
 
         std::cin.clear();
-        std::cout << "Enter password: ";
+        std::cout << "Nhập mật khẩu: ";
         std::cin >> pass;
         if (!userame_userobject.count(user_name)) {
-            std::cout << "\nInvalid user user_name or password. Try again\n\n";
+            std::cout << "\nTên người dùng hoặc mật khẩu người dùng không hợp lệ. Thử lại\n\n";
             continue;
         }
         User* user_exist = userame_userobject.find(user_name)->second;
 
         if (pass != user_exist->get_password()) {
-            std::cout << "\nInvalid user user_name or password. Try again\n\n";
+            std::cout << "\nTên người dùng hoặc mật khẩu người dùng không hợp lệ. Thử lại\n\n";
             continue;
         }
         current_user = user_exist;
@@ -67,21 +65,22 @@ void UsersManager::login() {
     }
 }
 
-void UsersManager::sign_up() {
+void UsersManager::sign_up() 
+{
     std::string user_name;
     while (true) {
-        std::cout << "Enter user name. (No spaces): ";
-        std::cin.clear();
+        std::cout << "Điền tên đăng nhập. (No spaces): ";
         std::cin >> user_name;
-
+        
         if (userame_userobject.count(user_name))
             std::cout << "Already used. Try again\n";
         else
             break;
     }
+    current_user = new User(); // Khởi tạo một đối tượng User mới
+    get_current_user()->read(user_name);
+    userame_userobject[get_current_user()->get_user_name()] = current_user;
 
-    current_user->read(user_name);
-    userame_userobject[current_user->get_user_name()] = current_user;
 }
 
 BookRead* UsersManager::add_reaad_session(Book* book) {

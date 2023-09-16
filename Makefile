@@ -1,6 +1,6 @@
 # Biến
 CXX = g++  # Compiler
-CFLAGS = -Wall -I./include  # C Flags và đường dẫn đến thư mục chứa header files
+CFLAGS = -g -Wall -I./include  # C Flags và đường dẫn đến thư mục chứa header files
 LDFLAGS =  # Linker Flags
 
 # Danh sách các tệp nguồn và tệp đối tượng

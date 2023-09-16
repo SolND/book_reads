@@ -26,9 +26,9 @@ void User::set_password(const std::string &pass)
 {
     this->password = pass;
 }
-void User::set_user_name(const std::string &user_name)
+void User::set_user_name(const std::string &user)
 {
-    this->user_name = user_name;
+    user_name = user;
 }
 void User::set_name(const std::string &name)
 {
@@ -64,22 +64,33 @@ BookRead* User::add_reaad_session(Book* book)
 	reading_sessions.push_back(session);
 	return session;
 }
-void User::read(const std::string &user_name) {
+void User::read(const std::string &user_name) 
+{
 	set_user_name(user_name);
+    std::cin.clear();
+	std::cin.ignore(256, '\n');
 
-	std::string str;
+	std::string pass;
+    std::string name;
+    std::string mail;
 
 	std::cout << "Enter password: ";
-	std::cin >> str;
-	set_password(str);
+	std::cin >> pass;
+	set_password(pass);
+	std::cin.clear();
+	std::cin.ignore(256, '\n');
 
 	std::cout << "Enter name: ";
-	std::cin >> str;
-	set_name(str);
+	std::cin >> name;
+	set_name(name);
+	std::cin.clear();
+	std::cin.ignore(256, '\n');
 
 	std::cout << "Enter email: ";
-	std::cin >> str;
-	set_mail(str);
+	std::cin >> mail;
+	set_mail(mail);
+    std::cin.clear();
+	std::cin.ignore(256, '\n');
 }
 
 std::string User::to_string()
