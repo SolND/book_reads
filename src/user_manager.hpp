@@ -2,18 +2,21 @@
 #define _USER_MANAGER_HPP
 #include "user.hpp"
 #include "book_read.hpp"
-class UsersManager {
+#include "book_manager.hpp"
+class UsersManager 
+{
 private:
 	User* current_user = nullptr;
-	static std::map<std::string, User*> userame_userobject;
-
+	std::map<std::string, User*> userame_userobject;
+    // BooksManager &books_manager;
     void free_loaded_data();
 
 public:
     UsersManager();
+    // UsersManager(BooksManager &books_manager);
 	~UsersManager();
-    // UsersManager(const UsersManager&) = delete;
-	// void operator=(const UsersManager&) = delete;
+    UsersManager(const UsersManager&) = delete;
+	void operator=(const UsersManager&) = delete;
     BookRead* add_reaad_session(Book* book);
     void sign_up();
     void access_system();

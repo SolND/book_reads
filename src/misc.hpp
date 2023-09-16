@@ -8,7 +8,7 @@
 #include <sstream>
 #include <iomanip>
 #include <map>
-
+#include <algorithm>
 
 ////////////////////////// Utilities //////////////////////////
 int read_number(int low, int high);

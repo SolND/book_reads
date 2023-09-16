@@ -93,7 +93,7 @@ void User::read(const std::string &user_name)
 	std::cin.ignore(256, '\n');
 }
 
-std::string User::to_string()
+std::string User::print()
 {
     std::ostringstream oss;
     oss << "Name: " << get_user_name();
@@ -103,4 +103,23 @@ std::string User::to_string()
     oss << "Email: " << email << "\n";
     oss << "User name: " << user_name << "\n";
     return oss.str();
+}
+
+void User::borrow_book(Book* book) 
+{
+    borrowed_books.push_back(book);
+}
+
+void User::return_book(Book* book) 
+{
+    // Tìm và xóa sách đã trả khỏi danh sách mượn
+    auto it = std::find(borrowed_books.begin(), borrowed_books.end(), book);
+    if (it != borrowed_books.end()) 
+    {
+        borrowed_books.erase(it);
+    }
+}
+
+const std::vector<Book*>& User::get_borrowed_books() const {
+    return borrowed_books;
 }

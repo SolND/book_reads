@@ -65,7 +65,7 @@ void BookRead::previous_page()
     if (current_page > 0)
         current_page--;
 }
-std::string BookRead::to_string() 
+std::string BookRead::print() 
 {
     std::ostringstream oss;
     oss << get_book()->get_title() << " Page: " << page_idx_str() << " - " << get_last_access_date();

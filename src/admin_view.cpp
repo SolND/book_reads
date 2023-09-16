@@ -56,7 +56,7 @@ void AdminView::display()
 void AdminView::view_profile() {
     User* user = users_manager.get_current_user();
 
-    std::cout << "\n" << user->to_string() << "\n";
+    std::cout << "\n" << user->print() << "\n";
 }
 
 void AdminView::add_book() 

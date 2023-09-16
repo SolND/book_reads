@@ -19,7 +19,7 @@ public:
 	int get_current_page();
 	std::string page_idx_str();
 	void previous_page();
-	std::string to_string();
+	std::string print();
 
 private:
     Book *book;

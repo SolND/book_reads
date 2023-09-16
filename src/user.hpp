@@ -24,15 +24,18 @@ public:
     std::string get_name();
     bool get_is_lib_admin();
     std::vector<BookRead*> get_read_session();
-    std::string to_string();
+    std::string print();
     void read(const std::string &user_name);
+    const std::vector<Book*>& get_borrowed_books() const;
+    void borrow_book(Book* book);
+    void return_book(Book* book);
 private:
 	std::string user_name;
 	std::string password;
 	std::string name;
 	std::string email;
 	bool is_library_admin;
-
+    std::vector<Book*> borrowed_books;
 	std::vector<BookRead*> reading_sessions;
 };
 

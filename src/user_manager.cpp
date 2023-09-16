@@ -1,11 +1,16 @@
 #include"user_manager.hpp"
-
+#include "user_view.hpp"
 UsersManager::UsersManager() 
 {
     current_user = nullptr;
 }
+// UsersManager::UsersManager(BooksManager &books_anager) : books_manager(books_manager) 
+// {
+//     current_user = nullptr;
+// }
 
-UsersManager::~UsersManager() {
+UsersManager::~UsersManager() 
+{
     std::cout << "Destuctor: UsersManager\n";
     free_loaded_data();
     if (current_user) 
@@ -15,7 +20,33 @@ UsersManager::~UsersManager() {
     }
 }
 
-void UsersManager::load_database() {
+BookRead* UsersManager::add_reaad_session(Book* book) 
+{
+    return current_user->add_reaad_session(book);
+}
+
+User* UsersManager::get_current_user()
+{
+    return current_user;
+}
+
+void UsersManager::set_current_user(User* ptr)
+{
+    this->current_user = ptr;
+}
+
+void UsersManager::free_loaded_data() 
+{
+    for (auto pair : userame_userobject) {
+        delete pair.second;
+    }
+    userame_userobject.clear();
+    set_current_user(nullptr);
+}
+
+
+void UsersManager::load_database() 
+{
     std::cout << "UsersManager: LoadDatabase\n";
 
     free_loaded_data();
@@ -29,7 +60,8 @@ void UsersManager::load_database() {
     userame_userobject[user1->get_user_name()] = user1;
 }
 
-void UsersManager::access_system() {
+void UsersManager::access_system() 
+{
     int choice = show_read_menu( { "Login", "Sign Up" });
     if (choice == 1)
         login();
@@ -37,7 +69,8 @@ void UsersManager::access_system() {
         sign_up();
 }
 
-void UsersManager::login() {
+void UsersManager::login() 
+{
     load_database();
 
     while (true) {
@@ -50,13 +83,15 @@ void UsersManager::login() {
         std::cin.clear();
         std::cout << "Nhập mật khẩu: ";
         std::cin >> pass;
-        if (!userame_userobject.count(user_name)) {
+        if (!userame_userobject.count(user_name)) 
+        {
             std::cout << "\nTên người dùng hoặc mật khẩu người dùng không hợp lệ. Thử lại\n\n";
             continue;
         }
         User* user_exist = userame_userobject.find(user_name)->second;
 
-        if (pass != user_exist->get_password()) {
+        if (pass != user_exist->get_password()) 
+        {
             std::cout << "\nTên người dùng hoặc mật khẩu người dùng không hợp lệ. Thử lại\n\n";
             continue;
         }
@@ -83,23 +118,3 @@ void UsersManager::sign_up()
 
 }
 
-BookRead* UsersManager::add_reaad_session(Book* book) {
-    return current_user->add_reaad_session(book);
-}
-
-User* UsersManager::get_current_user()
-{
-    return current_user;
-}
-void UsersManager::free_loaded_data() 
-{
-    for (auto pair : userame_userobject) {
-        delete pair.second;
-    }
-    userame_userobject.clear();
-    set_current_user(nullptr);
-}
-void UsersManager::set_current_user(User* ptr)
-{
-    this->current_user = ptr;
-}
